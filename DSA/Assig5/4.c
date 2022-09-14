@@ -30,8 +30,9 @@ void main()
     char b;
     printf("\nEnter the expression:\n");
     scanf("%d", &a);
+    int num = sizeof(a) / sizeof(a[0]);
     printf("\nThe postfix expression is:\n");
-    while (a[i] != '/0')
+    while (i != num)
     {
         if (isalnum(a[i]))
             printf("%c", a[i]);
@@ -46,7 +47,7 @@ void main()
         {
             while (lvl(s[t] >= lvl(a[i])))
                 printf("%c", pop());
-            push(*a);
+            push(a[i]);
         }
         i++;
     }
