@@ -5,11 +5,12 @@ struct node
     int data;
     struct node *next, *prev;
 };
-struct node *head, *ptr;
+typedef struct node emp;
+emp *head, *ptr;
 void add()
 {
-    struct node *new;
-    new = (struct node *)malloc(sizeof(struct node));
+    emp *new;
+    new = (emp *)malloc(sizeof(emp));
     printf("\nEnter the value: ");
     scanf("%d", &new->data);
     new->next = NULL;
@@ -25,7 +26,7 @@ void add()
     }
     ptr = new;
 }
-void disp(struct node *t)
+void disp(emp *t)
 {
     if (t == head)
     {
@@ -56,15 +57,15 @@ void display()
 void count()
 {
     int count = 0;
-    struct node *t;
-    t = (struct node *)malloc(sizeof(struct node));
+    emp *t;
+    t = (emp *)malloc(sizeof(emp));
     for (t = head; t != NULL; t = t->next)
         count++;
-    printf("\nNo. of nodes present are %d", count);
+    printf("\nNo. of emps present are %d", count);
 }
 void search()
 {
-    struct node *t;
+    emp *t;
     int s;
     printf("\nEnter node to search: ");
     scanf("%d", &s);
@@ -79,10 +80,10 @@ void search()
     if (t == NULL)
         printf("\nNode not found.\n");
 }
-void ins(struct node *t)
+void ins(emp *t)
 {
-    struct node *new;
-    new = (struct node *)malloc(sizeof(struct node));
+    emp *new;
+    new = (emp *)malloc(sizeof(emp));
     printf("\nEnter the data you want to insert: ");
     scanf("%d", &new->data);
     new->next = NULL;
@@ -103,11 +104,11 @@ void ins(struct node *t)
 }
 void insp()
 {
-    struct node *t, *new;
+    emp *t, *new;
     int n1, i;
     printf("\nEnter the  position after you want to insert :\n");
     scanf("%d", &n1);
-    new = (struct node *)malloc(sizeof(struct node));
+    new = (emp *)malloc(sizeof(emp));
     printf("\nEnter the data you want to insert: ");
     scanf("%d", &new->data);
     new->next = NULL;
@@ -125,7 +126,7 @@ void insp()
 }
 void insert()
 {
-    struct node *t, *new;
+    emp *t, *new;
     int n1, i, n;
     printf("\n1)At first.\n2)At Last.\n3)At a given position.\nEnter your choice.\n");
     scanf("%d", &n);
@@ -141,9 +142,9 @@ void insert()
         insp();
         break;
     }
-    printf("\nNode inserted.\n");
+    printf("\nemp inserted.\n");
 }
-void del(struct node *t)
+void del(emp *t)
 {
     if (t == head)
     {
@@ -161,7 +162,7 @@ void del(struct node *t)
 }
 void delp()
 {
-    struct node *t, *k;
+    emp *t, *k;
     int n1, i;
     printf("\nEnter the  position after you want to delete :\n");
     scanf("%d", &n1);
@@ -179,8 +180,7 @@ void delp()
 }
 void delete ()
 {
-    struct node *t, *new;
-    int n1, i, n;
+    int n;
     printf("\n1)At first.\n2)At Last.\n3)At a given position.\nEnter your choice.\n");
     scanf("%d", &n);
 
@@ -196,7 +196,7 @@ void delete ()
         delp();
         break;
     }
-    printf("\nNode deleted.\n");
+    printf("\nemp deleted.\n");
 }
 void main()
 {
@@ -204,7 +204,7 @@ void main()
     head = NULL;
     do
     {
-        printf("\n1)Add\n2)Display\n3)Count no. of nodes\n4)Search\n5)Insert\n6)Delete\n7)Exit\nEnter your choice: ");
+        printf("\n1)Add\n2)Display\n3)Count no. of emps\n4)Search\n5)Insert\n6)Delete\n7)Exit\nEnter your choice: ");
         scanf("%d", &n);
         switch (n)
         {
