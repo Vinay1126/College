@@ -30,7 +30,7 @@ void create()
 void myshow(int c)
 {
     if (c == 2)
-        myadd();
+        add();
     if (head[c] == NULL)
     {
         printf("\nPolynomial not present.");
@@ -45,7 +45,7 @@ void myshow(int c)
     }
     printf("\n");
 }
-void mylist()
+void list()
 {
     int ch;
     printf("\nWhich polynomial you want to see?\n1)Poly 1\n2)Poly 2\n3)Resultant Poly\n");
@@ -63,7 +63,7 @@ void mylist()
         break;
     }
 }
-void myadd()
+void add()
 {
     node *p, *t, *q;
     t = (node *)malloc(sizeof(node));
@@ -150,7 +150,7 @@ void main()
             create();
             break;
         case 2:
-            mylist();
+            list();
             break;
         }
     } while (ch != 3);
