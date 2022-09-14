@@ -21,11 +21,12 @@ void create()
     printf("\nIn which polynomial you want to add?\n1)Poly 1\n2)Poly 2\n");
     scanf("%d", &ch);
     myinput(t);
-    if (head[ch - 1] == NULL)
-        head[ch - 1] = t;
+    int n = ch - 1;
+    if (head[n] == NULL)
+        head[n] = t;
     else
-        ptr[ch - 1]->next = t;
-    ptr[ch - 1] = t;
+        ptr[n]->next = t;
+    ptr[n] = t;
 }
 void myshow(int c)
 {
@@ -50,16 +51,17 @@ void list()
     int ch;
     printf("\nWhich polynomial you want to see?\n1)Poly 1\n2)Poly 2\n3)Resultant Poly\n");
     scanf("%d", &ch);
-    switch (ch)
+    int n = ch - 1;
+    switch (n)
     {
+    case 0:
+        myshow(n);
+        break;
     case 1:
-        myshow(ch - 1);
+        myshow(n);
         break;
     case 2:
-        myshow(ch - 1);
-        break;
-    case 3:
-        myshow(ch - 1);
+        myshow(n);
         break;
     }
 }
@@ -112,8 +114,9 @@ void add()
             t->base = q->base;
             q = q->next;
         }
+        t->next = NULL;
     }
-    if (p == NULL)
+    if (p == NULL && q != NULL)
     {
         for (; q != NULL; q = q->next)
         {
@@ -122,8 +125,9 @@ void add()
             t->exp = q->exp;
             t->base = q->base;
         }
+        t->next = NULL;
     }
-    if (q == NULL)
+    if (q == NULL && p != NULL)
     {
         for (; p != NULL; p = p->next)
         {
@@ -132,6 +136,7 @@ void add()
             t->exp = p->exp;
             t->base = p->base;
         }
+        t->next = NULL;
     }
     ptr[2] = t;
 }
