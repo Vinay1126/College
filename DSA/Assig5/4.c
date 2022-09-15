@@ -1,54 +1,88 @@
 #include <stdio.h>
 #include <ctype.h>
-char s[100], a[1000];
-int t = -1;
-int pop()
-{
-    if (t == -1)
-        return -1;
-    else
-        return s[t--];
-}
+#include <string.h>
+char stack[100], in[100], post[100];
+int top = -1;
 void push(char x)
 {
-    s[++t] = x;
+    stack[++top] = x;
 }
-int lvl(char x)
+char pop()
 {
-    int l;
-    if (x == '(')
-        l = 0;
-    if (x == '+' || x == '-')
-        l = 1;
-    if (x == '*' || x == '/')
-        l = 2;
-    return l;
+    char s;
+    if (top == -1)
+    {
+        printf("\nUnderflow\n");
+        return;
+    }
+    else
+    {
+        s = stack[top];
+        top--;
+    }
+    return s;
+}
+int check(char s)
+{
+    if (s == '^' || s == '*' || s == '/' || s == '+' || s == '-')
+        return 1;
+    return 0;
+}
+int lvl(char s)
+{
+    if (s == '^')
+        return 3;
+    else if (s == '*' || s == '/')
+        return 2;
+    else if (s == '+' || s == '-')
+        return 1;
+    else
+        return 0;
+}
+void change()
+{
+    int i = 0, j = 0;
+    char s, tmp;
+    strcat(in, ")");
+    for (s = in[i]; s != '\0'; i++)
+    {
+        if (s == '(')
+            push(s);
+        else if (isdigit(s) || isalpha(s))
+        {
+            post[j] = s;
+            j++;
+        }
+        else if (check(s))
+        {
+            tmp = pop();
+            while ((check(s)) && (lvl(tmp) >= lvl(s)))
+            {
+                post[j] = tmp;
+                j++;
+                tmp = pop();
+            }
+            push(tmp);
+            push(s);
+        }
+        else if (s == ')')
+        {
+            tmp = pop();
+            while (tmp != '(')
+            {
+                post[j] = tmp;
+                j++;
+                tmp = pop();
+            }
+        }
+    }
+    post[j] = '\0';
 }
 void main()
 {
-    int i = 0;
-    char b;
-    printf("\nEnter the expression:\n");
-    scanf("%d", &a);
-    int num = sizeof(a) / sizeof(a[0]);
-    printf("\nThe postfix expression is:\n");
-    while (i != num)
-    {
-        if (isalnum(a[i]))
-            printf("%c", a[i]);
-        else if (a[i] == '(')
-            push(a[i]);
-        else if (a[i] == ')')
-        {
-            while ((b = pop()) != '(')
-                printf("%c", b);
-        }
-        else
-        {
-            while (lvl(s[t] >= lvl(a[i])))
-                printf("%c", pop());
-            push(a[i]);
-        }
-        i++;
-    }
+    printf("\nEnter the expression in infix.\n");
+    scanf("%s", in);
+    change();
+    printf("\nThe postfix Expression:  ");
+    puts(post);
 }

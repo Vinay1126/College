@@ -1,79 +1,135 @@
 #include <stdio.h>
+#include <stdlib.h>
+#include <ctype.h>
+#include <string.h>
+
+typedef struct Node
+{
+    char data;
+    struct Node *next;
+} stack;
+
+stack *top = NULL;
+
+void push(char x)
+{
+    stack *new = (stack *)malloc(sizeof(stack));
+    new->next = NULL;
+    new->data = x;
+    if (top == NULL)
+        top = new;
+
+    else
+    {
+        new->next = top;
+        top = new;
+    }
+}
+
+char pop()
+{
+    char x;
+    stack *temp = top;
+    if (top == NULL)
+    {
+        printf("\nSTACK UNDERFLOW");
+        exit(1);
+    }
+
+    else
+    {
+        x = top->data;
+        top = top->next;
+        free(temp);
+        return x;
+    }
+}
+
+int isOperator(char sym)
+{
+    if (sym == '^' || sym == '*' || sym == '/' || sym == '+' || sym == '-')
+        return 1;
+    return 0;
+}
+
+int precedence(char sym)
+{
+    if (sym == '^')
+        return 3;
+    else if (sym == '*' || sym == '/')
+        return 2;
+    else if (sym == '+' || sym == '-')
+        return 1;
+    else
+        return 0;
+}
+
+void convert(char infix[], char postfix[])
+{
+    int i, j;
+    char x, rem;
+    push('(');
+    strcat(infix, ")");
+
+    i = j = 0;
+    x = infix[i];
+
+    while (x != '\0')
+    {
+        if (x == '(')
+            push(x);
+
+        else if (isdigit(x) || isalpha(x))
+        {
+            postfix[j] = x;
+            j++;
+        }
+
+        else if (isOperator(x))
+        {
+            rem = pop();
+            while ((isOperator(x)) && (precedence(rem) >= precedence(x)))
+            {
+                postfix[j] = rem;
+                j++;
+                rem = pop();
+            }
+            push(rem);
+            push(x);
+        }
+
+        else if (x == ')')
+        {
+            rem = pop();
+            while (rem != '(')
+            {
+                postfix[j] = rem;
+                j++;
+                rem = pop();
+            }
+        }
+
+        else
+        {
+            printf("Invalid infix Expression.\n");
+            exit(1);
+        }
+        i++;
+        x = infix[i];
+    }
+
+    postfix[j] = '\0';
+}
+
 int main()
 {
-    void push(int *, int *, int);
-    void pop(int *, int *, int);
-    void display(int *, int *);
+    char infix[100], postfix[100];
+    printf("\nEnter Infix expression : ");
+    scanf("%s", infix);
 
-    int stack[5];
-    int *top, userInput, maxSize = 4;
-    int temp, flag = 1;
-    top = &temp;
-    *top = -1;
+    convert(infix, postfix);
+    printf("Postfix Expression: ");
+    puts(postfix);
 
-    while (flag)
-    {
-        printf("Press 1 to push into stack\n");
-        printf("Enter 2 to pop out of stack\n");
-        printf("Enter any other integer to exit\n");
-        printf("Your choice: ");
-        scanf("%d", &userInput);
-        switch (userInput)
-        {
-        case 1:
-            push(stack, top, maxSize);
-            display(stack, top);
-            break;
-
-        case 2:
-            pop(stack, top, maxSize);
-            display(stack, top);
-            break;
-
-        default:
-            flag = 0;
-            display(stack, top);
-            break;
-        }
-    }
-}
-
-void push(int *stack, int *top, int maxSize)
-{
-    if (*top == maxSize)
-    {
-        printf("STACK OVERFLOW\n");
-        return;
-    }
-
-    int value;
-    (*top)++;
-    stack += *top;
-    printf("Enter value to be pushed into stack: ");
-    scanf("%d", &value);
-    *stack = value;
-}
-
-void pop(int *stack, int *top, int maxSize)
-{
-    if (*top == -1)
-    {
-        printf("STACK UNDERFLOW\n");
-        return;
-    }
-
-    stack += *top;
-    (*top)--;
-    printf("%d popped\n", *stack);
-}
-
-void display(int *stack, int *top)
-{
-    printf("Stack: ");
-    for (int i = 0; i <= *top; i++)
-    {
-        printf("%d ", *stack);
-        stack++;
-    }
-    printf("\n\n");
+    return 0;
 }
