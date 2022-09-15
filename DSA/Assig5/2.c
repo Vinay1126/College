@@ -62,15 +62,6 @@ void display()
         break;
     }
 }
-void count()
-{
-    int count = 1;
-    emp *t;
-    t = (emp *)malloc(sizeof(emp));
-    for (t = head; t->next != head; t = t->next)
-        count++;
-    printf("\nNo. of nodes present are %d", count);
-}
 void search()
 {
     emp *t;
@@ -128,7 +119,7 @@ void insp()
     printf("\nEnter the data you want to insert: ");
     scanf("%d", &new->data);
     new->next = NULL;
-    for (i = 1, t = head; t != NULL; t = t->next, i++)
+    for (i = 1, t = head; t != ptr; t = t->next, i++)
     {
         if (i + 1 == n1)
         {
@@ -183,7 +174,7 @@ void delp()
     int n1, i;
     printf("\nEnter the  position after you want to delete :\n");
     scanf("%d", &n1);
-    for (i = 1, t = head; t != NULL; t = t->next, i++)
+    for (i = 1, t = head; t != ptr; t = t->next, i++)
     {
         if (i + 1 == n1)
         {
@@ -222,7 +213,7 @@ void main()
     head = NULL;
     do
     {
-        printf("\n1)Add\n2)Display\n3)Count no. of nodes\n4)Search\n5)Insert\n6)Delete\n7)Exit\nEnter your choice: ");
+        printf("\n1)Add\n2)Display\n4)Search\n5)Insert\n6)Delete\n7)Exit\nEnter your choice: ");
         scanf("%d", &n);
         switch (n)
         {
@@ -231,9 +222,6 @@ void main()
             break;
         case 2:
             display();
-            break;
-        case 3:
-            count();
             break;
         case 4:
             search();
