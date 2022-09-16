@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <ctype.h>
 #include <string.h>
-char stack[100], in[100], post[100];
+char stack[100];
 int top = -1;
 void push(char x)
 {
@@ -41,7 +41,7 @@ int lvl(char s)
     else
         return 0;
 }
-void change()
+void change(char in[], char post[])
 {
     int i = 0, j = 0;
     char s, tmp;
@@ -83,9 +83,10 @@ void change()
 }
 void main()
 {
+    char in[100], post[100];
     printf("\nEnter the expression in infix.\n");
     scanf("%s", in);
-    change();
+    change(in, post);
     printf("\nThe postfix Expression:  ");
     puts(post);
     return 0;
