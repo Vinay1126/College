@@ -6,7 +6,8 @@ char stack[100], in[100], post[100];
 int top = -1;
 void push(char x)
 {
-    stack[++top] = x;
+    top++;
+    stack[top] = x;
 }
 char pop()
 {
@@ -14,14 +15,14 @@ char pop()
     if (top == -1)
     {
         printf("\nUnderflow\n");
-        return;
+        exit(1);
     }
     else
     {
         s = stack[top];
         top--;
+        return s;
     }
-    return s;
 }
 int check(char s)
 {
@@ -44,6 +45,7 @@ void change()
 {
     int i = 0, j = 0;
     char s, tmp;
+    push('(');
     strcat(in, ")");
     for (s = in[i]; s != '\0'; i++)
     {
@@ -86,4 +88,5 @@ void main()
     change();
     printf("\nThe postfix Expression:  ");
     puts(post);
+    return 0;
 }
