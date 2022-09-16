@@ -89,5 +89,4 @@ void main()
     change(in, post);
     printf("\nThe postfix Expression:  ");
     puts(post);
-    return 0;
 }
