@@ -7,12 +7,6 @@ struct poly
 };
 typedef struct poly node;
 node *head[3], *ptr[3];
-void myinput(node *p)
-{
-    printf("\nEnter the base and exponent:\n");
-    scanf("%d%d", &p->base, &p->exp);
-    p->next = NULL;
-}
 void create()
 {
     node *t;
@@ -20,7 +14,9 @@ void create()
     t = (node *)malloc(sizeof(node));
     printf("\nIn which polynomial you want to add?\n1)Poly 1\n2)Poly 2\n");
     scanf("%d", &ch);
-    myinput(t);
+    printf("\nEnter the base and exponent:\n");
+    scanf("%d%d", &t->base, &t->exp);
+    t->next = NULL;
     int n = ch - 1;
     if (head[n] == NULL)
         head[n] = t;
