@@ -2,48 +2,80 @@
 
 void add(int t[][3], int p[][3], int n)
 {
-    int i, j, c = 0, k[20][3], l = 1, q = 1;
-    for (i = 0; i < n; i++)
-    {
-        for (j = 0; j < n; j++)
-        {
-            if (t[i][j] == p[i][j])
-                c++;
-        }
-    }
-    c = (n * n) - c;
+    int i = 1, j = 1, l = 1, k[20][3];
     k[0][0] = n;
     k[0][1] = n;
-    k[0][2] = c + 1;
-    int m = n;
-    for (i = 1; i <= c; i++, m--)
+    int r = t[0][2], s = p[0][2];
+    while (i <= r && j <= s)
     {
-        for (j = 0; j < n; j++)
+        if (t[i][0] == p[j][0])
         {
-            if (t[l][0] == (n - m) || p[l][0] == (n - m))
+            if (t[i][1] == p[j][1])
             {
-                if (t[i][j] > p[i][j])
+                k[l][0] = t[i][0];
+                k[l][1] = p[i][1];
+                k[l][2] = p[i][2] + t[i][2];
+                i++;
+                j++;
+                l++;
+            }
+            else
+            {
+                if (t[i][1] > p[j][1])
                 {
-                    k[l][0] = p[i][q];
-                    k[l][1] = p[i][j];
-                    k[l][2] = p[i][n - 1];
+                    k[l][0] = p[j][0];
+                    k[l][1] = p[j][1];
+                    k[l][2] = p[j][2];
+                    j++;
+                    l++;
                 }
-                else if (t[i][j] < p[i][j])
+                else
                 {
-                    k[l][0] = t[i][q];
-                    k[l][1] = t[i][j];
-                    k[l][2] = t[i][n - 1];
+                    k[l][0] = t[i][0];
+                    k[l][1] = t[i][1];
+                    k[l][2] = t[i][2];
+                    i++;
+                    l++;
                 }
-                else if (t[i][j] == p[i][j])
-                {
-                    k[l][0] = t[i][q];
-                    k[l][1] = p[i][j];
-                    k[l][2] = p[i][n - 1] + t[i][n - 1];
-                }
+            }
+        }
+        else
+        {
+            if (t[i][0] > p[j][0])
+            {
+                k[l][0] = p[j][0];
+                k[l][1] = p[j][1];
+                k[l][2] = p[j][2];
+                j++;
+                l++;
+            }
+            else
+            {
+                k[l][0] = t[i][0];
+                k[l][1] = t[i][1];
+                k[l][2] = t[i][2];
+                i++;
                 l++;
             }
         }
     }
+    while (i <= r && j >= s)
+    {
+        k[l][0] = t[i][0];
+        k[l][1] = t[i][1];
+        k[l][2] = t[i][2];
+        i++;
+        l++;
+    }
+    while (j <= s && i >= r)
+    {
+        k[l][0] = p[j][0];
+        k[l][1] = p[j][1];
+        k[l][2] = p[j][2];
+        j++;
+        l++;
+    }
+    k[0][2] = l;
     printf("\nThe addition of the 2 sparse matrix is:\n");
     for (i = 0; i < l; i++)
     {
@@ -57,7 +89,7 @@ void create(int arr1[][20], int arr2[][20], int c, int d, int n)
     int i, j, l = 1, m = 1, t[20][3], p[20][3];
     t[0][0] = n;
     t[0][1] = n;
-    t[0][2] = c + 1;
+    t[0][2] = c;
     for (i = 0; i < n; i++)
     {
         for (j = 0; j < n; j++)
@@ -110,5 +142,5 @@ void main()
         if (arr2[i][j] != 0)
             d++;
     }
-    create(arr1, arr2, c, d, n);
+    create(arr1, arr2, c + 1, d, n);
 }
