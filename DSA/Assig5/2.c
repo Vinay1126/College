@@ -6,7 +6,7 @@ struct node
     struct node *next, *prev;
 };
 typedef struct node emp;
-emp *head, *ptr;
+emp *head, *tail;
 void add()
 {
     emp *new;
@@ -21,12 +21,12 @@ void add()
     }
     else
     {
-        new->prev = ptr;
-        ptr->next = new;
+        new->prev = tail;
+        tail->next = new;
     }
-    ptr = new;
-    ptr->next = head;
-    head->prev = ptr;
+    tail = new;
+    tail->next = head;
+    head->prev = tail;
 }
 void disp(emp *t)
 {
@@ -38,9 +38,9 @@ void disp(emp *t)
         t = t->next;
         printf("%3d", t->data);
     }
-    if (t == ptr)
+    if (t == tail)
     {
-        for (t = ptr; t->prev != ptr; t = t->prev)
+        for (t = head->prev; t->prev != head->prev; t = t->prev)
             printf("%3d", t->data);
         printf("%3d", t->data);
         t = t->prev;
@@ -58,7 +58,7 @@ void display()
         disp(head);
         break;
     case 2:
-        disp(ptr);
+        disp(tail);
         break;
     }
 }
@@ -96,18 +96,13 @@ void ins(emp *t)
     if (t == head)
     {
         new->next = head;
-        new->prev = ptr;
+        new->prev = tail;
         head = new;
         return;
     }
-    if (t == ptr)
-    {
-        new->prev = ptr;
-        new->next = head;
-        ptr->next = new;
-        ptr = new;
-        return;
-    }
+    new->prev = head->prev;
+    new->next = head;
+    head->prev->next = new;
 }
 void insp()
 {
@@ -119,7 +114,7 @@ void insp()
     printf("\nEnter the data you want to insert: ");
     scanf("%d", &new->data);
     new->next = NULL;
-    for (i = 1, t = head; t != ptr; t = t->next, i++)
+    for (i = 1, t = head; t != tail; t = t->next, i++)
     {
         if (i + 1 == n1)
         {
@@ -143,7 +138,7 @@ void insert()
         ins(head);
         break;
     case 2:
-        ins(ptr);
+        ins(tail);
         break;
     case 3:
         insp();
@@ -156,14 +151,14 @@ void del(emp *t)
     if (t == head)
     {
         head = head->next;
-        head->prev = ptr;
+        head->prev = tail;
         free(t);
         return;
     }
-    if (t == ptr)
+    if (t == tail)
     {
-        ptr = ptr->prev;
-        ptr->next = head;
+        tail = tail->prev;
+        tail->next = head;
         free(t);
         return;
     }
@@ -174,7 +169,7 @@ void delp()
     int n1, i;
     printf("\nEnter the  position after you want to delete :\n");
     scanf("%d", &n1);
-    for (i = 1, t = head; t != ptr; t = t->next, i++)
+    for (i = 1, t = head; t != tail; t = t->next, i++)
     {
         if (i + 1 == n1)
         {
@@ -199,7 +194,7 @@ void delete ()
         del(head);
         break;
     case 2:
-        del(ptr);
+        del(tail);
         break;
     case 3:
         delp();
