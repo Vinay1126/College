@@ -2,65 +2,6 @@
 #include <stdlib.h>
 #define MAXSIZE 10
 
-int main()
-{
-    void pushFront(int *, int *, int *);
-    void popFront(int *, int *);
-    void displayFront(int *, int *);
-    void pushRev(int *, int *, int *);
-    void popRev(int *, int *);
-    void displayRev(int *, int *);
-
-    int arrayStack[MAXSIZE];
-    int *top1, *top2, userInput;
-    int temp1 = -1, temp2 = MAXSIZE;
-    top1 = &temp1;
-    top2 = &temp2;
-
-    while (1)
-    {
-        printf("\n------------------------------------------------\n");
-        printf("STACK 1:\n");
-        printf("1: To push into Stack\n");
-        printf("2: To pop from Stack\n");
-        printf("3: To display elements of Stack\n");
-
-        printf("\nSTACK 2\n");
-        printf("4: To push into Stack\n");
-        printf("5: To pop from Stack \n");
-        printf("6: To display elements of Stack \n");
-
-        printf("\n7: To exit\n");
-        printf("Your choice: ");
-        scanf("%d", &userInput);
-
-        switch (userInput)
-        {
-        case 1:
-            pushFront(arrayStack, top1, top2);
-            break;
-        case 2:
-            popFront(arrayStack, top1);
-            break;
-        case 3:
-            displayFront(arrayStack, top1);
-            break;
-        case 4:
-            pushRev(arrayStack, top1, top2);
-            break;
-        case 5:
-            popRev(arrayStack, top2);
-            break;
-        case 6:
-            displayRev(arrayStack, top2);
-            break;
-        default:
-            exit(0);
-        }
-    }
-    return 0;
-}
-
 void pushFront(int *stack, int *top1, int *top2)
 {
     if (*top1 + 1 == *top2)
@@ -145,4 +86,51 @@ void displayRev(int *stack, int *top)
     for (int i = MAXSIZE - 1; i >= *top; i--)
         printf("%d ", stack[i]);
     printf("\n");
+}
+
+int main()
+{
+    int arrayStack[MAXSIZE];
+    int *top1, *top2, ch;
+    int temp1 = -1, temp2 = MAXSIZE;
+    top1 = &temp1;
+    top2 = &temp2;
+
+    do
+    {
+        printf("STACK 1:\n");
+        printf("1: Push\n");
+        printf("2: Pop\n");
+        printf("3: Display\n");
+        printf("\nSTACK 2\n");
+        printf("4: Push\n");
+        printf("5: Pop\n");
+        printf("6: Display\n");
+        printf("\n7: Exit\n");
+        printf("Your choice: ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+        case 1:
+            pushFront(arrayStack, top1, top2);
+            break;
+        case 2:
+            popFront(arrayStack, top1);
+            break;
+        case 3:
+            displayFront(arrayStack, top1);
+            break;
+        case 4:
+            pushRev(arrayStack, top1, top2);
+            break;
+        case 5:
+            popRev(arrayStack, top2);
+            break;
+        case 6:
+            displayRev(arrayStack, top2);
+            break;
+        }
+    } while (ch != 7);
+    return 0;
 }

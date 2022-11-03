@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-
 class Ab
 {
 protected:
@@ -9,7 +8,6 @@ protected:
 public:
     virtual void print() = 0;
 };
-
 class Number : public Ab
 {
 public:
@@ -18,18 +16,15 @@ public:
         cout << "Enter a number: ";
         cin >> num;
     }
-
     void print()
     {
         cout << "The number is: " << num << endl;
     }
 };
-
 int main()
 {
     Ab *ob;
     Number num;
-
     ob = &num;
     ob->print();
     return 0;

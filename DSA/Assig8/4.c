@@ -1,52 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void deQueue(int);
-void enQueue(int);
-void push1();
-void push2();
-int pop1();
-int pop2();
-void display();
-
 int stack1[100], stack2[100];
 int top1, top2;
-
-void main()
-{
-    top1 = top2 = -1;
-    int ch, c = -1;
-
-    while (1)
-    {
-        printf("\n--------------------------------\n");
-        printf("1: To ENQUEUE\n");
-        printf("2: To DEQUEUE\n");
-        printf("3: To display queue elements\n");
-        printf("0: To exit\n");
-        printf("Please enter your choice: ");
-        scanf("%d", &ch);
-
-        switch (ch)
-        {
-        case 1:
-            c++;
-            enQueue(c);
-            break;
-        case 2:
-            c--;
-            deQueue(c);
-            break;
-        case 3:
-            display(c);
-            break;
-        case 0:
-            exit(0);
-        default:
-            printf("INVALID CHOICE\n");
-        }
-    }
-}
 
 void enQueue(int c)
 {
@@ -110,4 +66,39 @@ void display(int c)
     for (int i = top1; i >= 0; i--)
         printf("%d ", stack1[i]);
     printf("\n");
+}
+
+void main()
+{
+    top1 = top2 = -1;
+    int ch, c = -1;
+
+    do
+    {
+        printf("1: ENQUEUE\n");
+        printf("2: DEQUEUE\n");
+        printf("3: Display\n");
+        printf("4: Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+        case 1:
+            c++;
+            enQueue(c);
+            break;
+        case 2:
+            c--;
+            deQueue(c);
+            break;
+        case 3:
+            display(c);
+            break;
+        case 0:
+            exit(0);
+        default:
+            printf("INVALID CHOICE\n");
+        }
+    } while (ch != 4);
 }

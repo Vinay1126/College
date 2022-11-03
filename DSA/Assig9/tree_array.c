@@ -1,4 +1,5 @@
 #include <stdio.h>
+
 void buildtree(int t[], int index, int item)
 {
     t[index] = item;
@@ -20,7 +21,7 @@ void buildtree(int t[], int index, int item)
         buildtree(t, 2 * index + 2, data);
     }
 }
-int main()
+void main()
 {
     int n;
     printf("Enter size of the array: ");
@@ -36,6 +37,6 @@ int main()
         if (t[i] == -1)
             printf("_");
         else
-            printf("%d\t", t[i]);
+            printf("%3d", t[i]);
     }
 }

@@ -1,52 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-void push(int);
-void pop(int);
-int deQueue1();
-int deQueue2();
-void enQueue1(int);
-void enQueue2(int);
-void display();
-
 int queue1[100], queue2[100];
 int front1, front2, rear1, rear2;
-
-void main()
-{
-    front1 = front2 = rear1 = rear2 = -1;
-    int ch, c = -1;
-
-    while (1)
-    {
-        printf("\n--------------------------------\n");
-        printf("1: To PUSH into stack\n");
-        printf("2: To POP out of stack\n");
-        printf("3: To display stack elements\n");
-        printf("0: To exit\n");
-        printf("Please enter your choice: ");
-        scanf("%d", &ch);
-
-        switch (ch)
-        {
-        case 1:
-            c++;
-            push(c);
-            break;
-        case 2:
-            c--;
-            pop(c);
-            break;
-        case 3:
-            display(c);
-            break;
-        case 0:
-            exit(0);
-        default:
-            printf("INVALID CHOICE\n");
-        }
-    }
-}
 
 void push(int c)
 {
@@ -126,4 +82,34 @@ void display(int c)
     for (int i = front1; i <= rear1; i++)
         printf("%d ", queue1[i]);
     printf("\n");
+}
+void main()
+{
+    front1 = front2 = rear1 = rear2 = -1;
+    int ch, c = -1;
+
+    do
+    {
+        printf("1: PUSH");
+        printf("2: POP ");
+        printf("3: Display\n");
+        printf("4: Exit\n");
+        printf("Enter your choice: ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+        case 1:
+            c++;
+            push(c);
+            break;
+        case 2:
+            c--;
+            pop(c);
+            break;
+        case 3:
+            display(c);
+            break;
+        }
+    } while (ch != 4);
 }

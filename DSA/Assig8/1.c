@@ -7,89 +7,6 @@ typedef struct Node
     struct Node *next;
 } deQue;
 
-int main()
-{
-    void insert_at_first(deQue **);
-    void insert_at_last(deQue **);
-    void delete_from_first(deQue **);
-    void delete_from_last(deQue **);
-    void display(deQue *);
-
-    int userInput;
-    deQue *headIR, *headDR;
-    headIR = headDR = NULL;
-
-    while (1)
-    {
-        printf("\n------------------------------------------------\n");
-        printf("Insertion Restricted Queue:\n");
-        printf("1: To insert into Queue\n");
-        printf("2: To remove from Queue\n");
-        printf("3: To display elements of Queue\n");
-
-        printf("\nDeletion Restricted Queue:\n");
-        printf("4: To insert into Queue\n");
-        printf("5: To remove from Queue\n");
-        printf("6: To display elements of Queue\n");
-
-        printf("\n7: To exit\n");
-        printf("Your choice: ");
-        scanf("%d", &userInput);
-
-        switch (userInput)
-        {
-        case 1:
-            insert_at_last(&headIR);
-            break;
-
-        case 2:
-            printf("1: To delete from beginning\n");
-            printf("2: To delete from end\n");
-            printf("Enter your choice: ");
-            scanf("%d", &userInput);
-            if (userInput == 1)
-                delete_from_first(&headIR);
-            else if (userInput == 2)
-                delete_from_last(&headIR);
-            else
-                printf("INVALID INPUT\n");
-            break;
-
-        case 3:
-            display(headIR);
-            break;
-
-        case 4:
-            printf("1: To insert at beginning\n");
-            printf("2: To insert at end\n");
-            printf("Enter your choice: ");
-            scanf("%d", &userInput);
-            if (userInput == 1)
-                insert_at_first(&headDR);
-            else if (userInput == 2)
-                insert_at_last(&headDR);
-            else
-                printf("INVALID INPUT\n");
-            break;
-
-        case 5:
-            delete_from_first(&headDR);
-            break;
-
-        case 6:
-            display(headDR);
-            break;
-
-        case 0:
-            exit(0);
-
-        default:
-            printf("INVALID INPUT\n");
-        }
-    }
-    return 0;
-}
-
 void insert_at_first(deQue **head)
 {
     deQue *new = (deQue *)malloc(sizeof(deQue));
@@ -175,4 +92,72 @@ void display(deQue *head)
         ptr = ptr->next;
     }
     printf("\n");
+}
+
+int main()
+{
+    int ch;
+    deQue *headIR, *headDR;
+    headIR = headDR = NULL;
+
+    do
+    {
+        printf("Insertion Restricted Queue:\n");
+        printf("1: Insert\n");
+        printf("2: Remove\n");
+        printf("3: Display\n");
+        printf("\nDeletion Restricted Queue:\n");
+        printf("4: Insert\n");
+        printf("5: Remove\n");
+        printf("6: Display\n");
+        printf("\n7: Exit\n");
+        printf("Your choice: ");
+        scanf("%d", &ch);
+
+        switch (ch)
+        {
+        case 1:
+            insert_at_last(&headIR);
+            break;
+
+        case 2:
+            printf("1: To delete from beginning\n");
+            printf("2: To delete from end\n");
+            printf("Enter your choice: ");
+            scanf("%d", &ch);
+            if (ch == 1)
+                delete_from_first(&headIR);
+            else if (ch == 2)
+                delete_from_last(&headIR);
+            else
+                printf("INVALID INPUT\n");
+            break;
+
+        case 3:
+            display(headIR);
+            break;
+
+        case 4:
+            printf("1: To insert at beginning\n");
+            printf("2: To insert at end\n");
+            printf("Enter your choice: ");
+            scanf("%d", &ch);
+            if (ch == 1)
+                insert_at_first(&headDR);
+            else if (ch == 2)
+                insert_at_last(&headDR);
+            else
+                printf("INVALID INPUT\n");
+            break;
+
+        case 5:
+            delete_from_first(&headDR);
+            break;
+
+        case 6:
+            display(headDR);
+            break;
+        }
+    } while (ch != 7);
+    return 0;
 }
