@@ -110,7 +110,7 @@ void nonrec_preorder(Tree *Root)
     Tree *ptr = Root;
     while (1)
     {
-        printf("%d ", ptr->data);
+        printf("%3d", ptr->data);
 
         if (ptr->rightChild)
             push(ptr->rightChild);
@@ -123,7 +123,7 @@ void nonrec_preorder(Tree *Root)
             ptr = pop();
             if (top == -1 && ptr->leftChild == NULL && ptr->rightChild == NULL)
             {
-                printf("%d", ptr->data);
+                printf("%3d", ptr->data);
                 return;
             }
         }
@@ -154,7 +154,7 @@ void nonrec_postorder(Tree *Root)
 
         else
         {
-            printf("%d ", ptr->data);
+            printf("%3d", ptr->data);
             ptr = NULL;
         }
     } while (top != -1);
