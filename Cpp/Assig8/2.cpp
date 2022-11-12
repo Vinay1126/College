@@ -7,7 +7,10 @@ protected:
     int id, sal;
 
 public:
-    virtual void calsal() = 0;
+    virtual void calsal()
+    {
+        sal = 0;
+    }
 };
 class Regular : public Employee
 {
@@ -22,11 +25,12 @@ public:
         cin >> id;
         cout << "\nEnter DA, HRA and basic salary:\n";
         cin >> da >> hra >> bs;
+        sal = (da + hra + bs);
     }
     void calsal()
     {
         cout << "Details of the regular employee:\n";
-        cout << "Salary:- " << (da + hra + bs);
+        cout << "Salary:- " << sal;
     }
 };
 class part_time : public Employee
@@ -42,11 +46,12 @@ public:
         cin >> id;
         cout << "\nEnter hours and pay per hour:\n";
         cin >> hr >> pay;
+        sal = (hr * pay);
     }
     void calsal()
     {
         cout << "Details of the part-time employee:\n";
-        cout << "Salary:- " << (hr * pay);
+        cout << "Salary:- " << sal;
     }
 };
 int main()

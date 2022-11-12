@@ -8,7 +8,10 @@ protected:
     string name;
 
 public:
-    virtual void dispbal() = 0;
+    virtual void dispbal()
+    {
+        bal = 0;
+    }
 };
 
 class Savings : public Account

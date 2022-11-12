@@ -5,13 +5,17 @@ class shape
 {
 protected:
     int rad, side, tri1, tri2, tri3;
+    float ar;
 
 public:
-    virtual void display() = 0;
+    virtual void display()
+    {
+        ar = 0;
+    }
 };
 class square : public shape
 {
-    float ar;
+    // float ar;
 
 public:
     void getdata()
@@ -31,7 +35,7 @@ public:
 };
 class circle : public shape
 {
-    float ar;
+    // float ar;
 
 public:
     void getdata()
@@ -51,7 +55,7 @@ public:
 };
 class triangle : public shape
 {
-    float ar;
+    // float ar;
 
 public:
     void getdata()

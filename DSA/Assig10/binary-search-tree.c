@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 typedef struct node
 {
@@ -6,47 +7,67 @@ typedef struct node
     struct node *lc, *rc;
 } tree;
 
-void buildtree(tree *ptr)
+tree *buildtree(tree *root, int ele)
 {
-    char ch;
-    printf("\nDo you want to enter new value(Y/N): ");
-    scanf("%d", &ch);
-    do
+    tree *new = (tree *)malloc(sizeof(tree));
+    tree *ptr = root;
+    new->data = ele;
+    new->lc = new->rc = NULL;
+    if (root)
     {
-        tree *new = (tree *)malloc(sizeof(tree));
-        printf("Enter the value: ");
-        scanf("%d", &new->data);
-        new->lc = NULL;
-        new->rc = NULL;
-        if (new->data > ptr->data)
+        while (ptr != NULL)
         {
-            while (ptr->data < new->data)
-                ptr = ptr->rc;
-            if (ptr->lc)
+            if (ele > ptr->data)
             {
-                ptr = ptr->lc;
-                if (ptr)
+                if (ptr->rc)
+                    ptr = ptr->rc;
+                else
                 {
-                    if (ptr->data < new->data)
-                                }
+                    ptr->rc = new;
+                    break;
+                }
+            }
+            else if (ele)
+            {
+                if (ptr->lc)
+                    ptr = ptr->lc;
+                else
+                {
+                    ptr->lc = new;
+                    break;
+                }
             }
         }
-        if (new->data < ptr->data)
-        {
-            ptr->rc = new;
-            new->lc = ptr;
-            buildtree(ptr);
-        }
-        printf("\nDo you want to enter new value(Y/N): ");
-        scanf("%d", &ch);
-    } while (ch == 'Y' || ch == 'y');
+    }
+    else
+        root = new;
+    return root;
+}
+void display(tree *ptr)
+{
+    if (ptr->lc)
+        display(ptr->lc);
+
+    printf("%3d", ptr->data);
+
+    if (ptr->rc)
+        display(ptr->rc);
 }
 void main()
 {
+    int ele;
+    char ch;
     tree *root = (tree *)malloc(sizeof(tree));
-    printf("\nEnter the value: ");
-    scanf("%d", &root->data);
     tree *ptr = (tree *)malloc(sizeof(tree));
-    ptr = root;
-    buildtree(ptr);
+    root = NULL;
+    do
+    {
+        printf("Enter the value: ");
+        scanf("%d", &ele);
+        root = buildtree(root, ele);
+        printf("Do you want to enter another element (Y/N): ");
+        scanf(" %c", &ch);
+    } while (ch == 'Y' || ch == 'y');
+    printf("\nThe Binary Search Tree is: ");
+    display(root);
 }
