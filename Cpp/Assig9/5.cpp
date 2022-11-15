@@ -13,14 +13,8 @@ int main()
             t = a / b;
             cout << "\nDivision of " << a << " and " << b << " is " << t;
         }
-        else if (b < 0)
-            throw('n');
         else
             throw(0);
-    }
-    catch (char p)
-    {
-        cout << "\nDivision of " << a << " and " << b << " is -" << t;
     }
     catch (int l)
     {
