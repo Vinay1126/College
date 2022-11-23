@@ -9,7 +9,7 @@ int main()
     int countWords, countLines, countDigits, countSpecial;
     char ch;
     string word, line;
-    ifstream in("Texting.txt");
+    ifstream in("destination.txt");
 
     // a) Number of characters
     while (!in.eof())

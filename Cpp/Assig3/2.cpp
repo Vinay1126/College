@@ -9,7 +9,7 @@ public:
     void getdata()
     {
         cout << "Enter sides of cylinder: ";
-        cin >> r, h;
+        cin >> r >> h;
     }
     friend void volume(cylinder);
 };

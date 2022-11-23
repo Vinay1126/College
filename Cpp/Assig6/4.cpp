@@ -38,6 +38,5 @@ int main()
     str2.input();
     String str3 = str1 + str2;
     str3.display();
-    cout << endl;
     return 0;
 }
